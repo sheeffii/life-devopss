@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mdep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mdep
+  template:
+    metadata:
+      labels:
+        app: mdep
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: healthcheck-data
+          mountPath: /healthcheck
+        livenessProbe:
+          exec:
+            command:
+              - cat
+              - /healthcheck/status
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      - name: busybox
+        image: busybox
+        command: ["sh", "-c", "touch /healthcheck/status; sleep 30; rm /healthcheck/status; sleep 600"]
+        volumeMounts:
+        - name: healthcheck-data
+          mountPath: /healthcheck
+      volumes:
+        - name: healthcheck-data
+          emptyDir: {}

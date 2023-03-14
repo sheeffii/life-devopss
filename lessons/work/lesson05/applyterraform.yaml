@@ -1,0 +1,13 @@
+---
+- name: Playbook to apply terraform
+  hosts:
+    - local
+  tasks:
+  - name: Go in this directory and terraform init
+    ansible.builtin.command: chdir=/root/work/lesson03 terraform init
+
+  - name: apply
+    ansible.builtin.command: chdir=/root/work/lesson03 terraform apply -auto-approve
+
+  #- name: apply
+   # ansible.builtin.command: chdir=/root/work/lesson03 terraform destroy -auto-approve

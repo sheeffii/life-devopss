@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-v
+  template:
+    metadata:
+      labels:
+        app: app-v
+    spec:
+      containers:
+      - name: app-v1
+        image: hashicorp/http-echo
+        env:
+        - name: TEXT
+          value: "app-v1"

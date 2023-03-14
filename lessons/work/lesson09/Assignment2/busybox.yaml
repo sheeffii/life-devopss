@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+spec:
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+    env:
+    - name: WHO
+      value: Who is asking?
+    - name: WHY
+      value: Why you are asking?
+    - name: WHAT
+      value: What are you asking?
+  restartPolicy: Always

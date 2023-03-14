@@ -1,0 +1,15 @@
+kind: Pod 
+apiVersion: v1 
+metadata:
+  name: pod-using-configmap 
+spec:
+  containers:
+    - name: container-configmap
+      image: nginx
+      volumeMounts:
+        - name: index-html-configmap-volume
+          mountPath: "/usr/share/nginx/html"
+  volumes:
+    - name: index-html-configmap-volume
+      configMap:
+        name: index-html-configmap

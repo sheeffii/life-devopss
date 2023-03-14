@@ -1,0 +1,11 @@
+---
+- name: Playbook to Install Packages
+  hosts:
+    - dren
+  tasks:
+  - name: Install postgresql and nginx
+    package:
+      name:
+        - postgresql
+        - nginx
+      state: present

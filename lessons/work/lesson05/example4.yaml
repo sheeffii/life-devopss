@@ -1,0 +1,11 @@
+---
+- name: Playbook to Install Packages
+  hosts:
+    - dren
+  tasks:
+  - name: Sending
+    copy:
+      src: ~/work/lesson05/index.html
+      dest: /var/www/html/
+    
+    

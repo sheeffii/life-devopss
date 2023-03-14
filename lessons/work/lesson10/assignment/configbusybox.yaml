@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  config.txt: |
+    key1: Monday
+    key2: Tuesday
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-busybox-pod-with-configmap
+spec:
+  containers:
+  - name: my-busybox-container
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - "cat /config/config.txt"
+    volumeMounts:
+    - name: config-volume
+      mountPath: /config
+  volumes:
+  - name: config-volume
+    configMap:
+      name: my-configmap
+      items:
+      - key: config.txt
+        path: config.txt

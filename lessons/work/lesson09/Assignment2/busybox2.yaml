@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  labels: demonstrate-envars
+spec:
+  nodeName: kind-control-plane
+  containers:
+  - name: envar-demo-container
+  - image: busybox
+    command: ["sleep","3600"]
+    imagePullPolicy: IfNotPresent
+  tolerations:
+  - key: "life"
+    operator: "Equals"
+    value: "gjirafa"
+    effecr: "NoExecute"
+  - key: "gjirafa"
+    operator: "Equals"
+    value: "life"
+    effecr: "NoSchedule"  

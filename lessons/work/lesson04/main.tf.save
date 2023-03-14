@@ -1,0 +1,43 @@
+resource "docker_image" "redis" {
+  name = "redis:latest"
+  keep_locally = false
+}
+
+resource "docker_container" "redisinsight" {
+  image = docker_image.redisinsight
+  name  = "redisinsight"
+
+  ports {
+    internal = 8001
+    external = 8001
+  }
+  networks = ["shs_network"]
+}
+
+resource "docker_image" "postgres" {
+  name = "postgres:latest"
+  keep_locally = false
+}
+
+resource "docker_volume" "postgres" {
+  name = "postgres"
+
+  env = [
+      "POSTGRES_PASSWORD=123456"
+  ]
+}
+
+resource "docker_container" "pgadmin4" {
+  image = docker_image.dpage/pgadmin4
+  name  = "phpmyadmin"
+
+  ports {
+    internal = 80
+    external = 5000
+  }
+  env = [
+     "PGADMIN_DEFAULT_EMAIL=shefqet@shefqet.com",
+     "PGADMIN_DEFAULT_PASSWORD=123456"
+  ]
+  networks = ["shs_network"]
+}

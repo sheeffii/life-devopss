@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-busybox-pod
+spec:
+  containers:
+  - name: my-busybox-container
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - touch /tmp/ready; "sleep 60; rm -f /tmp/ready "sleep 60;"
+    readinessProbe:
+      exec:
+        command:
+          - "cat"
+          - "/tmp/ready"
+      initialDelaySeconds: 5
+      periodSeconds: 5

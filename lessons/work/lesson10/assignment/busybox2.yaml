@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-busybox2-pod
+spec:
+  containers:
+  - name: my-busybox-1
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - "echo 'Hello, World! Nice to meet you.' > /my/output.txt"
+      - "sleep 100"
+    volumeMounts:
+    - name: shared-volume
+      mountPath: /shared
+  - name: my-busybox-2
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - "while true; cat /my/output.txt"
+      - "sleep 100"
+    volumeMounts:
+    - name: shared-volume
+      mountPath: /shared
+  volumes:
+  - name: shared-volume
+    emptyDir: {}

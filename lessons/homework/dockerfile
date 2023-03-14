@@ -1,0 +1,6 @@
+FROM ubuntu:focal
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y nginx curl
+ADD test.txt newdir/
+COPY .  /app
+CMD ["sleep", "infinity"]
